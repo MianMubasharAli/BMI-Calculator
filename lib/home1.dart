@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reuseable_card.dart';
 import 'reuseable_card_content.dart';
+import 'constants.dart';
 
-const bottomContainerHeight = 80.0;
-const inActiveColor = Color(0xFF111428);
-const activeColor = Color(0xFF111341);
 enum GenderType { male, female }
 
 class Home1 extends StatefulWidget {
@@ -17,6 +15,7 @@ class Home1 extends StatefulWidget {
 
 class _Home1State extends State<Home1> {
   GenderType? genderType;
+  double _currentSliderValue = 20;
   // Color maleCardColor = inActiveColor;
   // Color femaleCardColor = inActiveColor;
   // void updateColor(GenderType gender) {
@@ -56,8 +55,8 @@ class _Home1State extends State<Home1> {
                     });
                   },
                   color: genderType == GenderType.male
-                      ? activeColor
-                      : inActiveColor,
+                      ? kActiveColor
+                      : kInActiveColor,
                   childWidget: ReuseableCardContent(
                       icon: FontAwesomeIcons.mars, name: 'Male'),
                 ),
@@ -70,8 +69,8 @@ class _Home1State extends State<Home1> {
                     });
                   },
                   color: genderType == GenderType.female
-                      ? activeColor
-                      : inActiveColor,
+                      ? kActiveColor
+                      : kInActiveColor,
                   childWidget: ReuseableCardContent(
                     icon: FontAwesomeIcons.venus,
                     name: "Female",
@@ -82,7 +81,37 @@ class _Home1State extends State<Home1> {
           )),
           Expanded(
             child: ReuseableCard(
-              color: inActiveColor,
+              color: kInActiveColor,
+              childWidget: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Height", style: kTextStyle),
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text: _currentSliderValue.toStringAsFixed(0),
+                            style: kHeightCardTextStyle),
+                        TextSpan(
+                          text: "cm",
+                        ),
+                      ],
+                    ),
+                  ),
+                  Slider(
+                    value: _currentSliderValue,
+                    min: 0,
+                    max: 200,
+                    divisions: 200,
+                    label: _currentSliderValue.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        _currentSliderValue = value;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -90,19 +119,19 @@ class _Home1State extends State<Home1> {
             children: [
               Expanded(
                 child: ReuseableCard(
-                  color: inActiveColor,
+                  color: kInActiveColor,
                 ),
               ),
               Expanded(
                 child: ReuseableCard(
-                  color: inActiveColor,
+                  color: kInActiveColor,
                 ),
               ),
             ],
           )),
           Container(
             width: double.infinity,
-            height: bottomContainerHeight,
+            height: kBottomContainerHeight,
             color: Color(0xFFEB1555),
             padding: const EdgeInsets.only(top: 10),
             child: const Center(
