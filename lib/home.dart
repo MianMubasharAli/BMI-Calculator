@@ -15,9 +15,8 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text(
           "BMI Calculator",
-          style: TextStyle(color: Colors.black, fontSize: 20),
+          // style: TextStyle(color: Colors.black, fontSize: 20),
         ),
-        backgroundColor: Colors.white30,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -25,7 +24,6 @@ class _HomeState extends State<Home> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             IntrinsicHeight(
               child: Card(
-                color: Colors.white30.withOpacity(0.5),
                 child: Container(
                   height: ((MediaQuery.of(context).size.height) / 100) * 22,
                   width: ((MediaQuery.of(context).size.width) / 100) * 45,
@@ -50,7 +48,6 @@ class _HomeState extends State<Home> {
             ),
             IntrinsicHeight(
               child: Card(
-                color: Colors.white30.withOpacity(0.5),
                 child: Container(
                   height: ((MediaQuery.of(context).size.height) / 100) * 22,
                   width: ((MediaQuery.of(context).size.width) / 100) * 45,
@@ -76,7 +73,6 @@ class _HomeState extends State<Home> {
           ]),
           IntrinsicHeight(
             child: Card(
-              color: Colors.white30.withOpacity(0.5),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               child: Container(
@@ -87,8 +83,7 @@ class _HomeState extends State<Home> {
                   children: [
                     const Text(
                       "Height",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.black),
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     RichText(
                       text: TextSpan(
@@ -96,13 +91,13 @@ class _HomeState extends State<Home> {
                           TextSpan(
                             text: _currentSliderValue.toStringAsFixed(0),
                             style: TextStyle(
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           TextSpan(
-                              text: "cm",
-                              style: TextStyle(color: Colors.black)),
+                            text: "cm",
+                          ),
                         ],
                       ),
                     ),
@@ -136,7 +131,6 @@ class _HomeState extends State<Home> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             IntrinsicHeight(
               child: Card(
-                color: Colors.white30.withOpacity(0.5),
                 child: Container(
                   height: ((MediaQuery.of(context).size.height) / 100) * 22,
                   width: ((MediaQuery.of(context).size.width) / 100) * 45,
@@ -161,21 +155,21 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CircleAvatar(
-                            backgroundColor: Colors.white30.withOpacity(0.9),
+                            backgroundColor: Colors.black54.withOpacity(0.4),
                             child: IconButton(
                               icon: Icon(
                                 Icons.remove,
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                               onPressed: () {},
                             ),
                           ),
                           CircleAvatar(
-                            backgroundColor: Colors.white30.withOpacity(0.9),
+                            backgroundColor: Colors.black54.withOpacity(0.4),
                             child: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.add),
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           )
                         ],
@@ -190,7 +184,6 @@ class _HomeState extends State<Home> {
             ),
             IntrinsicHeight(
               child: Card(
-                color: Colors.white30.withOpacity(0.5),
                 child: Container(
                   height: ((MediaQuery.of(context).size.height) / 100) * 22,
                   width: ((MediaQuery.of(context).size.width) / 100) * 45,
@@ -215,21 +208,21 @@ class _HomeState extends State<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           CircleAvatar(
-                            backgroundColor: Colors.white30.withOpacity(0.9),
+                            backgroundColor: Colors.black54.withOpacity(0.4),
                             child: IconButton(
                               icon: Icon(
                                 Icons.remove,
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                               onPressed: () {},
                             ),
                           ),
                           CircleAvatar(
-                            backgroundColor: Colors.white30.withOpacity(0.9),
+                            backgroundColor: Colors.black54.withOpacity(0.4),
                             child: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.add),
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           )
                         ],
@@ -248,15 +241,14 @@ class _HomeState extends State<Home> {
             width: ((MediaQuery.of(context).size.width) / 100) * 95,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.black54,
-                ),
+                    // primary: Colors.black54,
+                    ),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Caculate",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
-                    color: Colors.black,
                   ),
                 )),
           )
