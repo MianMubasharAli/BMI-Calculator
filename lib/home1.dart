@@ -1,8 +1,12 @@
+import 'package:bmi_calculator/bmi_brain.dart';
+import 'package:bmi_calculator/result.dart';
+import 'package:bmi_calculator/weight_height_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reuseable_card.dart';
 import 'reuseable_card_content.dart';
 import 'constants.dart';
+import 'botom_button.dart';
 
 enum GenderType { male, female }
 
@@ -16,26 +20,7 @@ class Home1 extends StatefulWidget {
 class _Home1State extends State<Home1> {
   GenderType? genderType;
   double _currentSliderValue = 20;
-  // Color maleCardColor = inActiveColor;
-  // Color femaleCardColor = inActiveColor;
-  // void updateColor(GenderType gender) {
-  //   if (gender == GenderType.male) {
-  //     if (maleCardColor == inActiveColor) {
-  //       maleCardColor = activeColor;
-  //       femaleCardColor = inActiveColor;
-  //     } else {
-  //       maleCardColor = inActiveColor;
-  //     }
-  //   } else if (gender == GenderType.female) {
-  //     if (femaleCardColor == inActiveColor) {
-  //       femaleCardColor = activeColor;
-  //       maleCardColor = inActiveColor;
-  //     } else {
-  //       femaleCardColor = inActiveColor;
-  //     }
-  //   }
-  // }
-
+  int weight = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,23 +77,35 @@ class _Home1State extends State<Home1> {
                         TextSpan(
                             text: _currentSliderValue.toStringAsFixed(0),
                             style: kHeightCardTextStyle),
-                        TextSpan(
+                        const TextSpan(
                           text: "cm",
                         ),
                       ],
                     ),
                   ),
-                  Slider(
-                    value: _currentSliderValue,
-                    min: 0,
-                    max: 200,
-                    divisions: 200,
-                    label: _currentSliderValue.round().toString(),
-                    onChanged: (double value) {
-                      setState(() {
-                        _currentSliderValue = value;
-                      });
-                    },
+                  SliderTheme(
+                    data: SliderThemeData().copyWith(
+                        activeTrackColor: Colors.white,
+                        inactiveTrackColor: Colors.grey,
+                        overlayColor: Color(0x29EB1555),
+                        overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: 30),
+                        thumbShape: const RoundSliderThumbShape(
+                          enabledThumbRadius: 16,
+                        )),
+                    child: Slider(
+                      value: _currentSliderValue,
+                      min: 0,
+                      max: 200,
+                      divisions: 200,
+                      thumbColor: Color(0xFFEB1555),
+                      label: _currentSliderValue.round().toString(),
+                      onChanged: (double value) {
+                        setState(() {
+                          _currentSliderValue = value;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -120,25 +117,73 @@ class _Home1State extends State<Home1> {
               Expanded(
                 child: ReuseableCard(
                   color: kInActiveColor,
+                  childWidget: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Weight",
+                        style: kTextStyle,
+                      ),
+                      Text(
+                        weight.toString(),
+                        style: kHeightCardTextStyle,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.minus,
+                            onPress: () {
+                              setState(() {
+                                if (weight > 0) {
+                                  weight = weight - 1;
+                                }
+                              });
+                            },
+                          ),
+                          // WeightHeightIcons(
+                          //   icon: Icons.remove,
+                          // ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            onPress: () {
+                              setState(() {
+                                weight = weight + 1;
+                              });
+                            },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
               Expanded(
                 child: ReuseableCard(
                   color: kInActiveColor,
+                  childWidget: WeightHeightCard(
+                    label: "Age",
+                  ),
                 ),
               ),
             ],
           )),
-          Container(
-            width: double.infinity,
-            height: kBottomContainerHeight,
-            color: Color(0xFFEB1555),
-            padding: const EdgeInsets.only(top: 10),
-            child: const Center(
-                child: Text(
-              "CALCULATE",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            )),
+          BottomButton(
+            buttonText: "CALCULATE",
+            onPress: () {
+              BmiBrain calc =
+                  BmiBrain(height: _currentSliderValue.toInt(), weight: weight);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Result(calc.getResult(),
+                      calc.BmiCalculator(), calc.interpretation()),
+                ),
+              );
+            },
           ),
         ],
       ),

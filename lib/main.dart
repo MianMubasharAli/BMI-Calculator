@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/result.dart';
 import 'package:flutter/material.dart';
 import 'package:bmi_calculator/home.dart';
 import 'home1.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
           color: Color(0xFF0A0D22),
         ),
       ),
-      home: const Home1(),
+      initialRoute: "/",
+      routes: {"/": (context) => Home1()},
     );
   }
 }
